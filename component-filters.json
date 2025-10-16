@@ -16,8 +16,7 @@
       "cards",
       "columns",
       "fragment",
-      "carousel",
-      "icon-block"
+      "carousel"
     ]
   },
   {
@@ -42,8 +41,7 @@
       "text",
       "image",
       "button",
-      "title",
-      "icon-block"
+      "title"
     ]
   }
 ]
