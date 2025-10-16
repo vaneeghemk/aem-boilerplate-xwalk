@@ -161,6 +161,85 @@
     ]
   },
   {
+    "id": "carousel-item",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "value": "align-right",
+        "label": "Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Alignment",
+            "children": [
+              {
+                "name": "Left",
+                "value": ""
+              },
+              {
+                "name": "Right",
+                "value": "align-right"
+              },
+              {
+                "name": "Center",
+                "value": "align-center"
+              }
+            ]
+          },
+          {
+            "name": "Type",
+            "children": [
+              {
+                "name": "Dark",
+                "value": "bg-light"
+              },
+              {
+                "name": "Light",
+                "value": "bg-dark"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "media_cont",
+        "label": "Background Image Or Video",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "media_contAlt",
+        "value": "",
+        "label": "Bacgkround Alt"
+      },
+      {
+        "component": "richtext",
+        "name": "content_text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "content_linkText",
+        "label": "Button Text",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "content_link",
+        "value": "",
+        "label": "Button Link",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "columns",
     "fields": [
       {
@@ -211,6 +290,46 @@
         "name": "text",
         "value": "",
         "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "icon-block",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "content_linkText",
+        "label": "Button Text",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "content_link",
+        "value": "",
+        "label": "Button Link",
         "valueType": "string"
       }
     ]
