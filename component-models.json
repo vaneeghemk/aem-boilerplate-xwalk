@@ -590,7 +590,7 @@
             "value": "text-black"
           }
         ]
-      }
+      },
       {
         "component": "reference",
         "valueType": "string",
