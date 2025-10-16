@@ -9,11 +9,18 @@
   min-height: 300px;
 }
 
-.hero h1 {
+.hero h1, .hero h2, .hero h3, .hero h4, .hero h5, .hero h6 {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
-  color: var(--background-color);
+}
+
+.hero.text-white h1, .hero.text-white h2, .hero.text-white h3, .hero.text-white h4, .hero.text-white h5, .hero.text-white h6, .hero.text-white p {
+  color: white;
+}
+
+.hero.text-black h1, .hero.text-black h2, .hero.text-black h3, .hero.text-black h4, .hero.text-black h5, .hero.text-black h6, .hero.text-black p {
+  color: black;
 }
 
 .hero picture {
