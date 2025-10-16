@@ -596,6 +596,21 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
+      },
+      {
+        "component": "multiselect",
+        "name": "style",
+        "label": "Style",
+        "options": [
+          {
+            "name": "White text",
+            "value": "text-white"
+          },
+          {
+            "name": "Black text",
+            "value": "text-black"
+          }
+        ]
       }
     ]
   },
