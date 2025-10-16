@@ -16,7 +16,15 @@
       "cards",
       "columns",
       "fragment",
-      "carousel"
+      "carousel",
+      "accordion",
+      "embed",
+      "quote",
+      "social-media",
+      "table",
+      "tabs",
+      "teaser",
+      "video"
     ]
   },
   {
@@ -43,5 +51,37 @@
       "button",
       "title"
     ]
+  },
+  {
+    "id": "accordion",
+    "components": ["accordion-item"]
+  },
+  {
+    "id": "table",
+    "components": ["table-row"]
+  },
+  {
+    "id": "table-1-columns",
+    "components": ["table-col-1"]
+  },
+  {
+    "id": "table-2-columns",
+    "components": ["table-col-2"]
+  },
+  {
+    "id": "table-3-columns",
+    "components": ["table-col-3"]
+  },
+  {
+    "id": "table-4-columns",
+    "components": ["table-col-4"]
+  },
+  {
+    "id": "table-5-columns",
+    "components": ["table-col-5"]
+  },
+  {
+    "id": "tabs",
+    "components": ["tabs-item"]
   }
 ]
