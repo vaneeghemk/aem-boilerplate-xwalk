@@ -3,7 +3,9 @@
   background: #000;
   align-items: stretch;
   max-height: 240px;
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius);  
+  background: white;
+  color: #000;
 }
 
 .teaser.align-right {
