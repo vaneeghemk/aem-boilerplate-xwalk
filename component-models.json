@@ -617,19 +617,6 @@
                 "value": "align-right"
               }
             ]
-          },
-          {
-            "name": "Background",
-            "children": [
-              {
-                "name": "Primary",
-                "value": "bg-primary"
-              },
-              {
-                "name": "Secondary",
-                "value": "bg-secondary"
-              }
-            ]
           }
         ]
       },
