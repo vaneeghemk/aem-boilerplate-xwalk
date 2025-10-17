@@ -95,13 +95,6 @@
   margin: 0;
 }
 
-.teaser a:any-link.teaser-link {
-  background-color: var(--secondary-color);
-  display: inline-block;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
 @media (width <= 900px) {
   .teaser {
     flex-direction: column-reverse;
