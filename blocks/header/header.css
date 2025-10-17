@@ -145,8 +145,8 @@ header .nav-brand {
 }
 
 header nav .nav-brand img {
-  width: 128px;
-  height: auto;
+  max-height: calc(var(--nav-height) - 8px);
+    width: auto;
 }
 
 /* sections */
