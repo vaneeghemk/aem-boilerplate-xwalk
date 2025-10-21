@@ -46,11 +46,11 @@
 }
 
 .accordion.block details[open] summary {
-  background-color: var(--link-color);
+  background-color: var(--background-color);
 }
 
 .accordion.block details summary:hover {
-  background-color: var(--link-color-hover);
+  background-color: var(--background-color);
 }
 
 .accordion.block details summary::-webkit-details-marker {
