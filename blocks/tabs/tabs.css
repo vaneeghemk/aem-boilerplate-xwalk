@@ -23,14 +23,6 @@
   text-align: center;
 }
 
-.tabs.block .tabs-list button:first-of-type {
-  border-radius: 18px 0 0 0;
-}
-
-.tabs.block .tabs-list button:last-of-type {
-  border-radius: 0 18px 0 0;
-}
-
 .tabs.block .tabs-list button[aria-selected='true'] {
   border-bottom: 3px solid var(--link-color);
   background-color: var(--background-color);
@@ -47,7 +39,6 @@
   margin-top: -1px;
   padding: 16px 16px;
   border: none;
-  border-radius: 0 0 18px 18px;
   overflow: auto;
 }
 
