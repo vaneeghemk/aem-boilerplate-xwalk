@@ -379,6 +379,7 @@ function wrapTextNodes(block) {
     'H4',
     'H5',
     'H6',
+    'HR',
   ];
 
   const wrap = (el) => {
