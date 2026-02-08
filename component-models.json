@@ -659,6 +659,33 @@
     ]
   },
   {
+    "id": "search",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "value": "",
+        "label": "Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Search experience",
+            "children": [
+              {
+                "name": "Full",
+                "value": ""
+              },
+              {
+                "name": "Simple",
+                "value": "minimal"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "icon-block",
     "fields": [
       {
