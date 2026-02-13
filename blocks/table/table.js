@@ -1,4 +1,3 @@
-
 /*
  * Table Block
  * Recreate a table

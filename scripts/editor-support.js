@@ -134,38 +134,6 @@ async function applyChanges(event) {
   return false;
 }
 
-function handleSelection(event) {
-  const { detail } = event;
-  const resource = detail?.resource;
-
-  if (resource) {
-    const element = document.querySelector(`[data-aue-resource="${resource}"]`);
-    const block = element.parentElement?.closest('.block[data-aue-resource]') || element?.closest('.block[data-aue-resource]');
-
-    if (block && block.matches('.accordion')) {
-      // close all details
-      block.querySelectorAll('details').forEach((details) => {
-        details.open = false;
-      });
-
-      const details = element.matches('details') ? element : element.querySelector('details');
-      details.open = true;
-    }
-
-    if (block && block.matches('.carousel')) {
-      createMutation(block);
-    }
-
-    if (block && block.matches('.tabs')) {
-      const tabs = [...block.querySelectorAll('.tabs-panel > div')];
-      const index = tabs.findIndex((tab) => tab.dataset.aueResource === resource);
-      if (index !== -1) {
-        block.querySelectorAll('.tabs-list button')[index]?.click();
-      }
-    }
-  }
-}
-
 function attachEventListners(main) {
   [
     'aue:content-patch',
@@ -178,6 +146,7 @@ function attachEventListners(main) {
     event.stopPropagation();
     const applied = await applyChanges(event);
     if (applied) {
+      event.stopPropagation();
     } else {
       window.location.reload();
     }
@@ -188,15 +157,15 @@ attachEventListners(document.querySelector('main'));
 
 // when entering edit mode stop scrolling
 document.addEventListener('aue:ui-edit', () => {
-  document.querySelectorAll('.block.carousel').forEach( (carousel) => {
-      stopInterval(carousel);
+  document.querySelectorAll('.block.carousel').forEach((carousel) => {
+    stopInterval(carousel);
   });
 });
 
 // when entering preview mode start scrolling
 document.addEventListener('aue:ui-preview', () => {
-  document.querySelectorAll('.block.carousel').forEach( (carousel) => {
-      startInterval(carousel);
+  document.querySelectorAll('.block.carousel').forEach((carousel) => {
+    startInterval(carousel);
   });
 });
 

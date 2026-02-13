@@ -19,4 +19,12 @@ module.exports = {
     'linebreak-style': ['error', 'unix'], // enforce unix linebreaks
     'no-param-reassign': [2, { props: false }], // allow modifying properties of param
   },
+  overrides: [
+    {
+      files: ['component-models.json'],
+      rules: {
+        'xwalk/max-cells': 'off',
+      },
+    },
+  ],
 };

@@ -15,7 +15,6 @@
   font-size: unset;
   font-weight: bold;
   line-height: unset;
-  text-align: initial;
   text-overflow: unset;
   overflow: unset;
   white-space: unset;
@@ -46,7 +45,7 @@
 
 .tabs.block .tabs-panel {
   margin-top: -1px;
-  padding: 16px 16px;
+  padding: 16px;
   border: none;
   border-radius: 0;
   overflow: auto;

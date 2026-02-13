@@ -3,6 +3,31 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 
 const CAROUSEL_TIMER = 25000;
 
+/**
+ *
+ * @param {Element} block
+ * @param {*} slideIndex
+ */
+export function showSlide(block, slideIndex = 0) {
+  const slides = block.querySelectorAll('.carousel-slide');
+  let realSlideIndex = slideIndex < 0 ? slides.length - 1 : slideIndex;
+  if (slideIndex >= slides.length) realSlideIndex = 0;
+  const activeSlide = slides[realSlideIndex];
+  block.querySelectorAll('.carousel-slide-indicator > button').forEach((ind, index) => {
+    if (index !== slideIndex) ind.style.width = '0';
+  });
+  activeSlide.querySelectorAll('a').forEach((link) => link.removeAttribute('tabindex'));
+  block.querySelector('.carousel-slides').scrollTo({
+    top: 0,
+    left: activeSlide.offsetLeft,
+    behavior: 'smooth',
+  });
+  // when scroll finishes
+  setTimeout(() => {
+    block.loadPercentage = 0;
+  }, 100);
+}
+
 export function startInterval(block) {
   const interval = parseInt(block.dataset.interval, 10);
   block.loadPercentage = 0;
@@ -19,9 +44,9 @@ export function startInterval(block) {
       block.loadPercentage = percentage;
       indicator.style.width = `${percentage}%`;
       block.querySelectorAll('.carousel-slide-indicator > button').forEach((ind) => {
-        if (ind != indicator) ind.style.width = '0';
+        if (ind !== indicator) ind.style.width = '0';
       });
-      if (percentage == 0) {
+      if (percentage === 0) {
         block.dataset.activeSlide = (parseInt(block.dataset.activeSlide, 10) + 1) % slides.length;
         showSlide(block, block.dataset.activeSlide);
 
@@ -70,31 +95,6 @@ function updateActiveSlide(slide) {
 /**
  *
  * @param {Element} block
- * @param {*} slideIndex
- */
-export function showSlide(block, slideIndex = 0) {
-  const slides = block.querySelectorAll('.carousel-slide');
-  let realSlideIndex = slideIndex < 0 ? slides.length - 1 : slideIndex;
-  if (slideIndex >= slides.length) realSlideIndex = 0;
-  const activeSlide = slides[realSlideIndex];
-  block.querySelectorAll('.carousel-slide-indicator > button').forEach((ind, index) => {
-    if (index != slideIndex) ind.style.width = '0';
-  });
-  activeSlide.querySelectorAll('a').forEach((link) => link.removeAttribute('tabindex'));
-  block.querySelector('.carousel-slides').scrollTo({
-    top: 0,
-    left: activeSlide.offsetLeft,
-    behavior: 'smooth',
-  });
-  // when scroll finishes
-  setTimeout(() => {
-    block.loadPercentage = 0;
-  }, 100);
-}
-
-/**
- *
- * @param {Element} block
  * @returns
  */
 function bindEvents(block) {
@@ -129,9 +129,11 @@ function bindEvents(block) {
   // on hover stop interval
   block.addEventListener('mouseenter', (e) => {
     block.state = 'paused';
+    block.setAttribute('paused', e);
   });
   block.addEventListener('mouseleave', (e) => {
     block.state = 'playing';
+    block.setAttribute('playing', e);
   });
 }
 
@@ -188,12 +190,8 @@ export default async function decorate(block) {
     const slideNavButtons = document.createElement('div');
     slideNavButtons.classList.add('carousel-navigation-buttons');
     slideNavButtons.innerHTML = `
-      <button type="button" class= "slide-prev" aria-label="${
-        placeholders.previousSlide || 'Previous Slide'
-      }"></button>
-      <button type="button" class="slide-next" aria-label="${
-        placeholders.nextSlide || 'Next Slide'
-      }"></button>
+      <button type="button" class= "slide-prev" aria-label="${placeholders.previousSlide || 'Previous Slide'}"></button>
+      <button type="button" class="slide-next" aria-label="${placeholders.nextSlide || 'Next Slide'}"></button>
     `;
 
     container.append(slideNavButtons);
@@ -209,7 +207,7 @@ export default async function decorate(block) {
     if (classes && classes.length > 0) {
       slide.classList.add(...classes);
     }
-    console.log(row.querySelector(':scope > div'));
+
     moveInstrumentation(row, slide);
     slidesWrapper.append(slide);
 
