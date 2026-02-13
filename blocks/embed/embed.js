@@ -16,11 +16,66 @@ const loadScript = (url, callback, type) => {
   return script;
 };
 
+/** Returns a Promise that resolves with DOMPurify, loading the script if needed. */
+const getDOMPurify = () => {
+  if (typeof window.DOMPurify?.sanitize === 'function') {
+    return Promise.resolve(window.DOMPurify);
+  }
+  const base = typeof window.hlx?.codeBasePath === 'string' ? window.hlx.codeBasePath : '';
+  return new Promise((resolve, reject) => {
+    loadScript(`${base}/scripts/dompurify.min.js`, () => {
+      if (typeof window.DOMPurify?.sanitize === 'function') {
+        resolve(window.DOMPurify);
+      } else {
+        reject(new Error('DOMPurify failed to load'));
+      }
+    });
+  });
+};
+
+/**
+ * Web component that fetches HTML from an AEM Fragment URL and renders it in a shadow root.
+ * Fetched content is sanitized with DOMPurify before insertion (defense-in-depth).
+ */
+class AemFragmentEmbed extends HTMLElement {
+  static get observedAttributes() {
+    return ['src'];
+  }
+
+  connectedCallback() {
+    const src = this.getAttribute('src');
+    if (!src) return;
+    this.attachShadow({ mode: 'open' });
+    const container = document.createElement('div');
+    container.className = 'aem-fragment-container';
+    this.shadowRoot.appendChild(container);
+    getDOMPurify()
+      .then((DOMPurify) => fetch(src)
+        .then((r) => {
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          return r.text();
+        })
+        .then((html) => DOMPurify.sanitize(html, { USE_PROFILES: { html: true } })))
+      .then((sanitized) => {
+        container.innerHTML = sanitized;
+      })
+      .catch(() => {
+        container.textContent = 'Failed to load fragment';
+      });
+  }
+}
+
+if (!customElements.get('aem-fragment-embed')) {
+  customElements.define('aem-fragment-embed', AemFragmentEmbed);
+}
+
 const getDefaultEmbed = (url) => `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
     <iframe src="${url.href}" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen=""
       scrolling="no" allow="encrypted-media" title="Content from ${url.hostname}" loading="lazy">
     </iframe>
   </div>`;
+
+const embedAemFragment = (url) => `<aem-fragment-embed src="https://cors.cpilsworth.workers.dev/?target=${url.href}"></aem-fragment-embed>`;
 
 const embedYoutube = (url, autoplay) => {
   const usp = new URLSearchParams(url.search);
@@ -76,12 +131,18 @@ const loadEmbed = (block, link, autoplay) => {
       match: ['twitter', 'x.com'],
       embed: embedTwitter,
     },
+    {
+      match: ['aem-fragments.adobe.com'],
+      embed: embedAemFragment,
+      className: 'embed-aem-fragment',
+    },
   ];
   const config = EMBEDS_CONFIG.find((e) => e.match.some((match) => link.includes(match)));
   const url = new URL(link);
   if (config) {
     block.innerHTML = config.embed(url, autoplay);
-    block.classList = `block embed embed-${config.match[0]}`;
+    const embedClass = config.className || `embed-${config.match[0]}`;
+    block.classList = `block embed ${embedClass}`;
   } else {
     block.innerHTML = getDefaultEmbed(url);
     block.classList = 'block embed';
